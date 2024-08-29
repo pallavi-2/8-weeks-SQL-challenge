@@ -5,4 +5,4 @@ This repository contains my solutions for the [**#8WeekSQLChallenge**](https://8
 
 ## 📚 Table of contents
 
-[Case Study 1: Danny’s Diner](https://www.notion.so/Case-Study-1-Danny-s-Diner-74bdc8751d634e9e95e26bd55d5eded0?pvs=21)
+[Case Study 1: Danny’s Diner](https://github.com/pallavi-2/8-weeks-SQL-challenge/tree/main/Case%20Study%201%20Danny%E2%80%99s%20Diner)
