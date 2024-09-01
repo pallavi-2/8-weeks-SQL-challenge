@@ -20,7 +20,7 @@ ORDER BY sales.customer_id;
 | A | 76 |
 | B | 74 |
 | C | 36 |
-1. How many days has each customer visited the restaurant?
+2. How many days has each customer visited the restaurant?
 
 ```sql
 SELECT
@@ -35,7 +35,7 @@ GROUP BY customer_id;
 | A | 4 |
 | B | 6 |
 | C | 2 |
-1. What was the first item FROM the menu purchased by each customer?
+3. What was the first item FROM the menu purchased by each customer?
 
 ```sql
 WITH ordered_sales AS
@@ -64,7 +64,7 @@ GROUP BY customer_id,product_name
 | A | sushi |
 | B | curry |
 | C | ramen |
-1. What is the most purchased item on the menu and how many times was it purchased by all customers?
+4. What is the most purchased item on the menu and how many times was it purchased by all customers?
 
 ```sql
 SELECT
@@ -107,7 +107,7 @@ ORDER BY sales.customer_id
 | A | ramen | 3 |
 | B | ramen | 2 |
 | C | ramen | 3 |
-1. Which item was the most popular for each customer?
+5. Which item was the most popular for each customer?
 
 ```sql
 WITH most_popular AS
@@ -139,7 +139,7 @@ WHERE rank = 1
 | B | curry | 2 |
 | B | sushi | 2 |
 | C | ramen | 3 |
-1.  Which item was purchased first by the customer after they became a member?
+6.  Which item was purchased first by the customer after they became a member?
 
 ```sql
 WITH first_purchased AS 
@@ -168,7 +168,7 @@ ORDER BY customer_id
 | --- | --- |
 | A | ramen |
 | B | sushi |
-1. Which item was purchased just before the customer became a member?
+7. Which item was purchased just before the customer became a member?
 
 ```sql
 WITH purchased_just_before AS 
@@ -198,7 +198,7 @@ WHERE rank = 1
 | --- | --- |
 | B | sushi |
 | A | sushi |
-1. What is the total items and amount spent for each member before they became a member?
+8. What is the total items and amount spent for each member before they became a member?
 
 ```sql
 SELECT sales.customer_id,
@@ -217,7 +217,7 @@ GROUP BY sales.customer_id
 | --- | --- | --- |
 | B | 3 | 40 |
 | A | 2 | 25 |
-1. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
 
 ```sql
 SELECT
@@ -238,7 +238,7 @@ ORDER BY customer_id
 | A | 860 |
 | B | 940 |
 | C | 360 |
-1. In the first week after a customer JOINs the program (including their JOIN date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+10. In the first week after a customer JOINs the program (including their JOIN date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
 
 ```sql
 WITH dates AS 

@@ -13,7 +13,7 @@ FROM customer_orders_temp
 | total_count |
 | --- |
 | 14 |
-1. How many unique customer orders were made?
+2. How many unique customer orders were made?
 
 ```sql
 SELECT 
@@ -24,7 +24,7 @@ FROM customer_orders_temp
 | total_unique_order |
 | --- |
 | 10 |
-1. How many successful orders were delivered by each runner?
+3. How many successful orders were delivered by each runner?
 
 ```sql
 SELECT 
@@ -41,7 +41,7 @@ ORDER BY runner_id
 | 1 | 4 |
 | 2 | 3 |
 | 3 | 1 |
-1. How many of each type of pizza was delivered?
+4. How many of each type of pizza was delivered?
 
 ```sql
 SELECT
@@ -59,7 +59,7 @@ ORDER BY pizza_id
 | --- | --- |
 | 1 | 9 |
 | 2 | 3 |
-1. How many Vegetarian and Meatlovers were ordered by each customer?
+5. How many Vegetarian and Meatlovers were ordered by each customer?
 
 ```sql
 SELECT
@@ -83,7 +83,7 @@ ORDER BY customer_id
 | 103 | Vegetarian | 1 |
 | 104 | Meatlovers | 3 |
 | 105 | Vegetarian | 1 |
-1.  What was the maximum number of pizzas delivered in a single order?
+6.  What was the maximum number of pizzas delivered in a single order?
 
 ```sql
 SELECT 
@@ -97,7 +97,7 @@ ORDER BY COUNT(pizza_id) DESC LIMIT 1
 | order_id | max_count |
 | --- | --- |
 | 4 | 3 |
-1. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 
 ```sql
 SELECT
@@ -123,7 +123,7 @@ GROUP BY customer_id
 | 104 | 1 | 1 |
 | 105 | 1 | 0 |
 | 102 | 0 | 1 |
-1. How many pizzas were delivered that had both exclusions and extras?
+8. How many pizzas were delivered that had both exclusions and extras?
 
 ```sql
 SELECT
@@ -141,7 +141,7 @@ NOT LIKE '%Cancellation'
 | changed |
 | --- |
 | 1 |
-1. What was the total volume of pizzas ordered for each hour of the day?
+9. What was the total volume of pizzas ordered for each hour of the day?
 
 ```sql
 SELECT 
@@ -160,7 +160,7 @@ ORDER BY hours
 | 19 | 1 |
 | 21 | 3 |
 | 23 | 3 |
-1. What was the volume of orders for each day of the week?
+10. What was the volume of orders for each day of the week?
 
 ```sql
 SELECT 
@@ -197,7 +197,7 @@ GROUP BY runner_id
 | 1 | 15.68 |
 | 2 | 23.72 |
 | 3 | 10.47 |
-1. Is there any relationship between the number of pizzas and how long the order takes to prepare?
+2. Is there any relationship between the number of pizzas and how long the order takes to prepare?
 
 ```sql
 WITH order_count_cte AS
@@ -223,7 +223,7 @@ GROUP BY pizzas_order_count
 | 3 | 29.28 |
 | 2 | 18.38 |
 | 1 | 12.36 |
-1. What was the average distance travelled for each customer?
+3. What was the average distance travelled for each customer?
 
 ```sql
 SELECT customer_orders_temp.customer_id,
@@ -243,7 +243,7 @@ ORDER BY customer_orders_temp.customer_id
 | 103 | 23.40 |
 | 104 | 10.00 |
 | 105 | 25.00 |
-1. What was the difference between the longest and shortest delivery times for all orders?
+4. What was the difference between the longest and shortest delivery times for all orders?
 
 ```sql
 SELECT 
@@ -256,7 +256,7 @@ FROM runner_orders_temp
 | max_duration | min_duration | difference |
 | --- | --- | --- |
 | 40 | 10 | 30 |
-1. What was the average speed for each runner for each delivery and do you notice any trend for these values?
+5. What was the average speed for each runner for each delivery and do you notice any trend for these values?
 
 ```sql
 SELECT runner_id,customer_id,
@@ -278,7 +278,7 @@ ORDER BY runner_id,customer_id
 | 2 | 103 | 35.10 |
 | 2 | 105 | 60.00 |
 | 3 | 104 | 40.00 |
-1. What is the successful delivery percentage for each runner?
+6. What is the successful delivery percentage for each runner?
 
 ```sql
 SELECT 
@@ -343,7 +343,7 @@ GROUP BY pizza_name;
 | --- | --- |
 | Meatlovers | Bacon, BBQ Sauce, Beef, Cheese, Chicken, Mushrooms, Pepperoni, Salami |
 | Vegetarian | Cheese, Mushrooms, Onions, Peppers, Tomatoes, Tomato Sauce |
-1.  What was the most commonly added extra?
+2.  What was the most commonly added extra?
 
 ```sql
 WITH extra_cte AS
@@ -365,7 +365,7 @@ ORDER BY total DESC LIMIT 1
 | topping_name | total |
 | --- | --- |
 | Bacon | 4 |
-1. What was the most common exclusion?
+3. What was the most common exclusion?
 
 ```sql
 WITH exclusion_cte AS
