@@ -296,3 +296,94 @@ ORDER BY runner_id
 | 1 | 4 | 4 | 100 |
 | 2 | 3 | 4 | 75 |
 | 3 | 1 | 2 | 50 |
+
+**C. Ingredient Optimization**
+
+Creating a temporary table to store the name and pizza topping id
+
+```sql
+CREATE TEMP TABLE toppings_temp AS
+	SELECT 
+		pizza_name ,
+		CAST(trim(unnest(string_to_array(toppings, ',')))AS integer) AS topping_id
+FROM pizza_runner.pizza_names AS p_name
+JOIN
+pizza_runner.pizza_recipes AS p_recipe
+ON p_name.pizza_id = p_recipe.pizza_id;
+```
+
+| pizza_name | topping_id |
+| --- | --- |
+| Meatlovers | 1 |
+| Meatlovers | 2 |
+| Meatlovers | 3 |
+| Meatlovers | 4 |
+| Meatlovers | 5 |
+| Meatlovers | 6 |
+| Meatlovers | 8 |
+| Meatlovers | 10 |
+| Vegetarian | 4 |
+| Vegetarian | 6 |
+| Vegetarian | 7 |
+| Vegetarian | 9 |
+| Vegetarian | 11 |
+| Vegetarian | 12 |
+1.  What are the standard ingredients for each pizza?
+
+```sql
+SELECT 
+	pizza_name,
+	STRING_AGG(topping_name::TEXT, ', ') FROM toppings_temp
+JOIN pizza_runner.pizza_toppings
+	ON toppings_temp.topping_id = pizza_toppings.topping_id
+GROUP BY pizza_name;
+```
+
+| pizza_name | string_agg |
+| --- | --- |
+| Meatlovers | Bacon, BBQ Sauce, Beef, Cheese, Chicken, Mushrooms, Pepperoni, Salami |
+| Vegetarian | Cheese, Mushrooms, Onions, Peppers, Tomatoes, Tomato Sauce |
+1.  What was the most commonly added extra?
+
+```sql
+WITH extra_cte AS
+	(SELECT 
+		CAST(trim(unnest(string_to_array(extras, ',')))AS integer) AS extra_id,
+	COUNT(*) AS total
+	FROM customer_orders_temp 
+	WHERE extras IS NOT NULL
+	GROUP BY extra_id)
+
+SELECT 
+	topping_name, 
+	total FROM pizza_runner.pizza_toppings
+INNER JOIN extra_cte 
+ON extra_cte.extra_id = pizza_toppings.topping_id
+ORDER BY total DESC LIMIT 1
+```
+
+| topping_name | total |
+| --- | --- |
+| Bacon | 4 |
+1. What was the most common exclusion?
+
+```sql
+WITH exclusion_cte AS
+	(SELECT 
+		CAST(trim(unnest(string_to_array(exclusions, ',')))AS integer) AS exclusion_id,
+	COUNT(*) AS total
+	FROM customer_orders_temp 
+	WHERE exclusions IS NOT NULL
+	GROUP BY exclusion_id)
+
+SELECT 
+	topping_name, 
+	total FROM pizza_runner.pizza_toppings
+INNER JOIN exclusion_cte 
+ON exclusion_cte.exclusion_id = pizza_toppings.topping_id
+ORDER BY total DESC LIMIT 1
+```
+
+| topping_name | total |
+| --- | --- |
+| Cheese | 4 |
